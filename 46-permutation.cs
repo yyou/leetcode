@@ -1,29 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 public class Solution46
 {
-    private IList<IList<int>> result;
+    private IList<IList<int>> _permutationResult;
 
     public IList<IList<int>> Permute(int[] nums)
     {
-        result = new List<IList<int>>();
-        var currentPath = new List<int>();
-        PermuteImpl(currentPath, nums.ToList());
+        _permutationResult = new List<IList<int>>();
+        var selectedNumbers = new List<int>();
+        PermuteImpl(selectedNumbers, nums.ToList());
 
-        return result;
+        return _permutationResult;
     }
 
-    private void PermuteImpl(List<int> currentPath, List<int> nums)
+    private void PermuteImpl(List<int> selectedNumbers, List<int> candidates)
     {
-        if (!nums.Any())
+        if (!candidates.Any())
         {
-            result.Add(CloneList(currentPath));
+            _permutationResult.Add(CloneList(selectedNumbers));
             return;
         }
 
-        foreach (var num in nums)
+        foreach (var candidate in candidates)
         {
-            currentPath.Add(num);
-            PermuteImpl(currentPath, nums.Where(n => n != num).ToList());
-            currentPath.Remove(num);
+            selectedNumbers.Add(candidate);
+            PermuteImpl(selectedNumbers, candidates.Where(num => num != candidate).ToList());
+            selectedNumbers.Remove(candidate);
         }
     }
 
