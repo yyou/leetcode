@@ -1,4 +1,4 @@
-public class 509Solution {
+public class Solution509 {
     public int Fib(int n) {
         if (n < 1) {
             return 0;
