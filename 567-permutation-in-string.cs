@@ -1,67 +1,74 @@
-public class Solution567
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace leetcode
 {
-    public bool CheckInclusion(string s1, string s2)
+    public class Solution567
     {
-        var need = new Dictionary<char, int>();
-        var window = new Dictionary<char, int>();
-        for (var i = 0; i < s1.Length; ++i)
+        public bool CheckInclusion(string s1, string s2)
         {
-            if (need.ContainsKey(s1[i]))
+            var need = new Dictionary<char, int>();
+            var window = new Dictionary<char, int>();
+            for (var i = 0; i < s1.Length; ++i)
             {
-                need[s1[i]]++;
-            }
-            else
-            {
-                need[s1[i]] = 1;
-            }
-        }
-
-        int left = 0, right = 0;
-        int valid = 0;
-
-        while (right < s2.Length)
-        {
-            char c = s2[right];
-            right++;
-
-            if (need.ContainsKey(c))
-            {
-                if (window.ContainsKey(c))
+                if (need.ContainsKey(s1[i]))
                 {
-                    window[c]++;
+                    need[s1[i]]++;
                 }
                 else
                 {
-                    window[c] = 1;
-                }
-
-                if (window[c] == need[c])
-                {
-                    valid++;
+                    need[s1[i]] = 1;
                 }
             }
 
-            while (right - left >= s1.Length)
+            int left = 0, right = 0;
+            int valid = 0;
+
+            while (right < s2.Length)
             {
-                char d = s2[left];
-                left++;
+                char c = s2[right];
+                right++;
 
-                if (valid == need.Count())
+                if (need.ContainsKey(c))
                 {
-                    return true;
+                    if (window.ContainsKey(c))
+                    {
+                        window[c]++;
+                    }
+                    else
+                    {
+                        window[c] = 1;
+                    }
+
+                    if (window[c] == need[c])
+                    {
+                        valid++;
+                    }
                 }
 
-                if (need.ContainsKey(d))
+                while (right - left >= s1.Length)
                 {
-                    if (window[d] == need[d])
+                    char d = s2[left];
+                    left++;
+
+                    if (valid == need.Count())
                     {
-                        valid--;
+                        return true;
                     }
-                    window[d]--;
+
+                    if (need.ContainsKey(d))
+                    {
+                        if (window[d] == need[d])
+                        {
+                            valid--;
+                        }
+                        window[d]--;
+                    }
                 }
             }
-        }
 
-        return false;
+            return false;
+        }
     }
 }

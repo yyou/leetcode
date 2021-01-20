@@ -2,87 +2,90 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Solution76
+namespace leetcode
 {
-    public string MinWindow(string s, string t)
+    public class Solution76
     {
-        var need = new Dictionary<Char, Int32>();
-        for (var i = 0; i < t.Length; ++i)
+        public string MinWindow(string s, string t)
         {
-            if (need.ContainsKey(t[i]))
+            var need = new Dictionary<Char, Int32>();
+            for (var i = 0; i < t.Length; ++i)
             {
-                need[t[i]]++;
-            }
-            else
-            {
-                need[t[i]] = 1;
-            }
-        }
-
-        var window = new Dictionary<Char, Int32>();
-        var valid = 0;
-
-        var left = 0;
-        var right = 0;
-
-        var minimumLength = Int32.MaxValue;
-        var start = 0;
-        var len = 0;
-
-        while (right < s.Length)
-        {
-            // Expand window
-            var c = s[right];
-            right++;
-
-            if (need.ContainsKey(c))
-            {
-                if (window.ContainsKey(c))
+                if (need.ContainsKey(t[i]))
                 {
-                    window[c]++;
+                    need[t[i]]++;
                 }
                 else
                 {
-                    window[c] = 1;
-                }
-
-                if (window[c] == need[c])
-                {
-                    valid++;
+                    need[t[i]] = 1;
                 }
             }
 
-            // Need to shrink window
-            while (valid == need.Count())
+            var window = new Dictionary<Char, Int32>();
+            var valid = 0;
+
+            var left = 0;
+            var right = 0;
+
+            var minimumLength = Int32.MaxValue;
+            var start = 0;
+            var len = 0;
+
+            while (right < s.Length)
             {
-                if (right - left < minimumLength)
+                // Expand window
+                var c = s[right];
+                right++;
+
+                if (need.ContainsKey(c))
                 {
-                    start = left;
-                    len = right - left;
-                    minimumLength = len;
+                    if (window.ContainsKey(c))
+                    {
+                        window[c]++;
+                    }
+                    else
+                    {
+                        window[c] = 1;
+                    }
+
+                    if (window[c] == need[c])
+                    {
+                        valid++;
+                    }
                 }
 
-                var d = s[left];
-                left++;
-
-                if (need.ContainsKey(d))
+                // Need to shrink window
+                while (valid == need.Count())
                 {
-                    if (window[d] == need[d])
+                    if (right - left < minimumLength)
                     {
-                        valid--;
+                        start = left;
+                        len = right - left;
+                        minimumLength = len;
                     }
-                    window[d]--;
+
+                    var d = s[left];
+                    left++;
+
+                    if (need.ContainsKey(d))
+                    {
+                        if (window[d] == need[d])
+                        {
+                            valid--;
+                        }
+                        window[d]--;
+                    }
                 }
             }
-        }
 
-        if (minimumLength == Int32.MaxValue)
-        {
-            return "";
-        }
-        else
-        {
-            return s.Substring(start, len);
+            if (minimumLength == Int32.MaxValue)
+            {
+                return "";
+            }
+            else
+            {
+                return s.Substring(start, len);
+            }
         }
     }
 }

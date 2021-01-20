@@ -2,37 +2,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Solution46
+namespace leetcode
 {
-    private IList<IList<int>> _permutationResult;
-
-    public IList<IList<int>> Permute(int[] nums)
+    public class Solution46
     {
-        _permutationResult = new List<IList<int>>();
-        var selectedNumbers = new List<int>();
-        PermuteImpl(selectedNumbers, nums.ToList());
+        private IList<IList<int>> _permutationResult;
 
-        return _permutationResult;
-    }
-
-    private void PermuteImpl(List<int> selectedNumbers, List<int> candidates)
-    {
-        if (!candidates.Any())
+        public IList<IList<int>> Permute(int[] nums)
         {
-            _permutationResult.Add(CloneList(selectedNumbers));
-            return;
+            _permutationResult = new List<IList<int>>();
+            var selectedNumbers = new List<int>();
+            PermuteImpl(selectedNumbers, nums.ToList());
+
+            return _permutationResult;
         }
 
-        foreach (var candidate in candidates)
+        private void PermuteImpl(List<int> selectedNumbers, List<int> candidates)
         {
-            selectedNumbers.Add(candidate);
-            PermuteImpl(selectedNumbers, candidates.Where(num => num != candidate).ToList());
-            selectedNumbers.Remove(candidate);
-        }
-    }
+            if (!candidates.Any())
+            {
+                _permutationResult.Add(CloneList(selectedNumbers));
+                return;
+            }
 
-    private List<int> CloneList(IList<int> list)
-    {
-        return list.Select(item => item).ToList();
+            foreach (var candidate in candidates)
+            {
+                selectedNumbers.Add(candidate);
+                PermuteImpl(selectedNumbers, candidates.Where(num => num != candidate).ToList());
+                selectedNumbers.Remove(candidate);
+            }
+        }
+
+        private List<int> CloneList(IList<int> list)
+        {
+            return list.Select(item => item).ToList();
+        }
     }
 }

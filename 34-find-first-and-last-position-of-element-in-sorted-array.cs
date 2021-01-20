@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace leetcode {
 public class Solution34
 {
     public int[] SearchRange(int[] nums, int target)
@@ -68,4 +69,5 @@ public class Solution34
 
         return result;
     }
+}
 }

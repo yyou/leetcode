@@ -2,29 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Solution704
+namespace leetcode
 {
-    public int Search(int[] nums, int target)
+    public class Solution704
     {
-        var left = 0;
-        var right = nums.Length - 1;
-        while (left <= right)
+        public int Search(int[] nums, int target)
         {
-            var mid = left + (right - left) / 2;
-            if (nums[mid] == target)
+            var left = 0;
+            var right = nums.Length - 1;
+            while (left <= right)
             {
-                return mid;
+                var mid = left + (right - left) / 2;
+                if (nums[mid] == target)
+                {
+                    return mid;
+                }
+                else if (nums[mid] > target)
+                {
+                    right = mid - 1;
+                }
+                else if (nums[mid] < target)
+                {
+                    left = mid + 1;
+                }
             }
-            else if (nums[mid] > target)
-            {
-                right = mid - 1;
-            }
-            else if (nums[mid] < target)
-            {
-                left = mid + 1;
-            }
-        }
 
-        return -1;
+            return -1;
+        }
     }
 }
