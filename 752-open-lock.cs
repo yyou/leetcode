@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace leetcode
 {
-    public class Solution
+    public class Solution752
     {
         public int OpenLock(string[] deadends, string target)
         {
