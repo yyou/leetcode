@@ -6,9 +6,9 @@ namespace leetcode
     {
         static void Main(string[] args)
         {
-            var result = new Solution122().MaxProfit(new int[] {1,2,3,4,5});
+            var result = new Solution123().MaxProfit(new int[] {1});
             Console.WriteLine(result);
-            Console.Read();
+            //Console.Read();
         }
     }
 }
