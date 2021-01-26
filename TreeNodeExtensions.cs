@@ -8,8 +8,8 @@ namespace leetcode {
                 return "#";
             }
             return String.Format(
-                "({0}, {1}, {2})", 
-                node.val, 
+                "({0}, {1}, {2})",
+                node.val,
                 node.left.Serialize(),
                 node.right.Serialize());
         }

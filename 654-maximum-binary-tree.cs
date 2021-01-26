@@ -1,11 +1,8 @@
 using System;
 
-namespace leetcode
-{
-    public class Solution
-    {
-        public TreeNode ConstructMaximumBinaryTree(int[] nums)
-        {
+namespace leetcode {
+    public class Solution {
+        public TreeNode ConstructMaximumBinaryTree(int[] nums) {
             return Build(nums, 0, nums.Length - 1);
         }
 
@@ -16,7 +13,7 @@ namespace leetcode
 
             var max = Int32.MinValue;
             var index = -1;
-            for(var i = lo; i <= hi; ++i) {
+            for (var i = lo; i <= hi; ++i) {
                 if (nums[i] > max) {
                     max = nums[i];
                     index = i;

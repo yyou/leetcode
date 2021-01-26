@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace leetcode
-{
-    public class Solution652
-    {
-        public IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
-        {
+namespace leetcode {
+    public class Solution652 {
+        public IList<TreeNode> FindDuplicateSubtrees(TreeNode root) {
             var dict = new Dictionary<int, Boolean>();
             var result = new List<TreeNode>();
             FindDuplicateSubtrees(root, dict, result);
@@ -14,10 +11,8 @@ namespace leetcode
         }
 
         private int FindDuplicateSubtrees(
-            TreeNode node, Dictionary<int, Boolean> dict, List<TreeNode> result)
-        {
-            if (node == null)
-            {
+            TreeNode node, Dictionary<int, Boolean> dict, List<TreeNode> result) {
+            if (node == null) {
                 return 0;
             }
 
@@ -27,16 +22,12 @@ namespace leetcode
                 FindDuplicateSubtrees(node.left, dict, result),
                 FindDuplicateSubtrees(node.right, dict, result));
             var code = s.GetHashCode();
-            if (dict.ContainsKey(code))
-            {
-                if (dict[code] == false)
-                {
+            if (dict.ContainsKey(code)) {
+                if (dict[code] == false) {
                     result.Add(node);
                     dict[code] = true;
                 }
-            }
-            else
-            {
+            } else {
                 dict[code] = false;
             }
 

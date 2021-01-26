@@ -260,6 +260,9 @@ dotnet_diagnostic.IDE0059.severity = warning
 # IDE0060: Remove unused parameter
 dotnet_diagnostic.IDE0060.severity = warning
 
+# IDE0073: Require file header
+dotnet_diagnostic.IDE0073.severity = none; 
+
 # CA1822: Make member static
 dotnet_diagnostic.CA1822.severity = warning
 

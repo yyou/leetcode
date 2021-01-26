@@ -1,13 +1,9 @@
 using System;
 
-namespace leetcode
-{
-    public class Solution226
-    {
-        public TreeNode InvertTree(TreeNode root)
-        {
-            if (root == null)
-            {
+namespace leetcode {
+    public class Solution226 {
+        public TreeNode InvertTree(TreeNode root) {
+            if (root == null) {
                 return null;
             }
 

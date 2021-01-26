@@ -2,23 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace leetcode
-{
-    public class Solution438
-    {
-        public IList<int> FindAnagrams(string s, string p)
-        {
+namespace leetcode {
+    public class Solution438 {
+        public IList<int> FindAnagrams(string s, string p) {
             var need = new Dictionary<Char, Int32>();
             var window = new Dictionary<Char, Int32>();
 
-            for (var i = 0; i < p.Length; ++i)
-            {
-                if (need.ContainsKey(p[i]))
-                {
+            for (var i = 0; i < p.Length; ++i) {
+                if (need.ContainsKey(p[i])) {
                     need[p[i]]++;
-                }
-                else
-                {
+                } else {
                     need[p[i]] = 1;
                 }
             }
@@ -27,43 +20,33 @@ namespace leetcode
             int valid = 0;
             var startLocations = new List<Int32>();
 
-            while (right < s.Length)
-            {
+            while (right < s.Length) {
                 char c = s[right];
                 right++;
 
-                if (need.ContainsKey(c))
-                {
-                    if (window.ContainsKey(c))
-                    {
+                if (need.ContainsKey(c)) {
+                    if (window.ContainsKey(c)) {
                         window[c]++;
-                    }
-                    else
-                    {
+                    } else {
                         window[c] = 1;
                     }
 
-                    if (window[c] == need[c])
-                    {
+                    if (window[c] == need[c]) {
                         valid++;
                     }
                 }
 
-                while (right - left >= p.Length)
-                {
+                while (right - left >= p.Length) {
 
                     char d = s[left];
                     left++;
 
-                    if (valid == need.Count)
-                    {
+                    if (valid == need.Count) {
                         startLocations.Add(left - 1);
                     }
 
-                    if (need.ContainsKey(d))
-                    {
-                        if (window[d] == need[d])
-                        {
+                    if (need.ContainsKey(d)) {
+                        if (window[d] == need[d]) {
                             valid--;
                         }
 

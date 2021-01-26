@@ -2,21 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace leetcode
-{
-    public class Solution76
-    {
-        public string MinWindow(string s, string t)
-        {
+namespace leetcode {
+    public class Solution76 {
+        public string MinWindow(string s, string t) {
             var need = new Dictionary<Char, Int32>();
-            for (var i = 0; i < t.Length; ++i)
-            {
-                if (need.ContainsKey(t[i]))
-                {
+            for (var i = 0; i < t.Length; ++i) {
+                if (need.ContainsKey(t[i])) {
                     need[t[i]]++;
-                }
-                else
-                {
+                } else {
                     need[t[i]] = 1;
                 }
             }
@@ -31,34 +24,26 @@ namespace leetcode
             var start = 0;
             var len = 0;
 
-            while (right < s.Length)
-            {
+            while (right < s.Length) {
                 // Expand window
                 var c = s[right];
                 right++;
 
-                if (need.ContainsKey(c))
-                {
-                    if (window.ContainsKey(c))
-                    {
+                if (need.ContainsKey(c)) {
+                    if (window.ContainsKey(c)) {
                         window[c]++;
-                    }
-                    else
-                    {
+                    } else {
                         window[c] = 1;
                     }
 
-                    if (window[c] == need[c])
-                    {
+                    if (window[c] == need[c]) {
                         valid++;
                     }
                 }
 
                 // Need to shrink window
-                while (valid == need.Count())
-                {
-                    if (right - left < minimumLength)
-                    {
+                while (valid == need.Count()) {
+                    if (right - left < minimumLength) {
                         start = left;
                         len = right - left;
                         minimumLength = len;
@@ -67,10 +52,8 @@ namespace leetcode
                     var d = s[left];
                     left++;
 
-                    if (need.ContainsKey(d))
-                    {
-                        if (window[d] == need[d])
-                        {
+                    if (need.ContainsKey(d)) {
+                        if (window[d] == need[d]) {
                             valid--;
                         }
                         window[d]--;
@@ -78,12 +61,9 @@ namespace leetcode
                 }
             }
 
-            if (minimumLength == Int32.MaxValue)
-            {
+            if (minimumLength == Int32.MaxValue) {
                 return "";
-            }
-            else
-            {
+            } else {
                 return s.Substring(start, len);
             }
         }

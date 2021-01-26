@@ -1,11 +1,8 @@
 using System;
 
-namespace leetcode
-{
-    public class Solution114
-    {
-        public void Flatten(TreeNode root)
-        {
+namespace leetcode {
+    public class Solution114 {
+        public void Flatten(TreeNode root) {
             if (root == null) {
                 return;
             }
@@ -14,7 +11,7 @@ namespace leetcode
             Flatten(root.right);
 
             if (root.left != null) {
-                var p = root.left;            
+                var p = root.left;
                 while (p.right != null) {
                     p = p.right;
                 }
