@@ -48,59 +48,28 @@ namespace leetcode {
     }
 
     public class NestedIterator {
-        private readonly IList<object> _list = new List<object>();
-        private int _currentIndex;
+        private IList<NestedInteger> _list;
 
         public NestedIterator(IList<NestedInteger> nestedList) {
-            foreach (var ni in nestedList) {
-                if (ni.IsInteger()) {
-                    _list.Add(ni.GetInteger());
-                } else {
-                    var lst = ni.GetList();
-                    if (lst.Count() != 0) {
-                        _list.Add(new NestedIterator(ni.GetList()));
-                    }
-                }
-            }
-
-            _currentIndex = 0;
+            _list = nestedList;
         }
 
         public bool HasNext() {
-            if (_currentIndex >= _list.Count()) {
-                return false;
-            }
-
-            if (_list[_currentIndex] is int) {
-                return true;
-            } else {
-                var iter = (NestedIterator)_list[_currentIndex];
-                var hasNext = iter.HasNext();
-                if (hasNext) {
-                    return hasNext;
-                } else {
-                    _currentIndex++;
-                    if (_currentIndex >= _list.Count()) {
-                        return false;
-                    }
-
-                    if (_list[_currentIndex] is int) {
-                        return true;
-                    } else {
-                        return ((NestedIterator)_list[_currentIndex]).HasNext();
-                    }
+            while (_list.Any() && !_list.First().IsInteger()) {
+                var lst = _list.First().GetList();
+                _list.RemoveAt(0);
+                for (var i = lst.Count() - 1; i >= 0; --i) {
+                    _list = _list.Prepend(lst.ElementAt(i)).ToList();
                 }
             }
+
+            return _list.Any();
         }
 
         public int Next() {
-            try {
-                var n = (int)_list[_currentIndex];
-                _currentIndex++;
-                return n;
-            } catch (Exception) {
-                return ((NestedIterator)_list[_currentIndex]).Next();
-            }
+            var i = _list.First().GetInteger();
+            _list.Remove(_list.First());
+            return i;
         }
     }
 }
