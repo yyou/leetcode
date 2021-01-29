@@ -1,17 +1,17 @@
-using System;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace leetcode {
     public class Solution1 {
         public int[] TwoSum(int[] nums, int target) {
+            var dict = new Dictionary<int, int>();
             for (var i = 0; i < nums.Length; ++i) {
-                for (var j = 0; j < nums.Length; ++j) {
-                    if (i == j) {
-                        continue;
-                    }
-
-                    if (nums[i] + nums[j] == target) {
-                        return new int[] { i, j };
-                    }
+                var n = target - nums[i];
+                if (dict.ContainsKey(n)) {
+                    return new int[] { dict[n], i };
+                } else {
+                    dict[nums[i]] = i;
                 }
             }
             return new int[0];
