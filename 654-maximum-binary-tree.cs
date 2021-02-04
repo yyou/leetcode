@@ -1,7 +1,7 @@
 using System;
 
 namespace leetcode {
-    public class Solution {
+    public class Solution654 {
         public TreeNode ConstructMaximumBinaryTree(int[] nums) {
             return Build(nums, 0, nums.Length - 1);
         }
