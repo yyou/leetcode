@@ -13,14 +13,16 @@ namespace leetcode {
                 return head;
             }
 
-            var currentNode = new ListNode(head.val, null);
-            head = head.next;
-            while (head != null) {
-                var node = new ListNode(head.val, currentNode);
-                currentNode = node;
-                head = head.next;
+            var previousNode = head;
+            var node = previousNode.next;
+            previousNode.next = null;
+            while (node != null) {
+                var nextNode = node.next;
+                node.next = previousNode;
+                previousNode = node;
+                node = nextNode;
             }
-            return currentNode;
+            return previousNode;
         }
     }
 
@@ -38,6 +40,6 @@ namespace leetcode {
             head.next.next = head;
             head.next = null;
             return last;
-        }
+        }        
     }
 }
