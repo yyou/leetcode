@@ -16,5 +16,4 @@ namespace leetcode {
             this.next = next;
         }
     }
-  }
 }
