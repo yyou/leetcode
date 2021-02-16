@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 namespace leetcode {
-    public class Solution {
+    public class Solution27 {
         public int RemoveElement(int[] nums, int val) {
             var slowPointer = 0;
             for (var fastPointer = 0; fastPointer < nums.Length; ++fastPointer) {
