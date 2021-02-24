@@ -6,8 +6,8 @@ namespace leetcode {
     public class ItemCountDictionary<TKey> : Dictionary<TKey, int> {
         public new int this[TKey key] { 
             get {
-                if (!ContainsKey(key)) {
-                    base[key] = 0;                    
+               if (!ContainsKey(key)) {
+                    return 0;                    
                 }
                 return base[key];
             }
