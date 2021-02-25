@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 namespace leetcode {
-    public class Solution15 {
+    public class Solution15Slow {
         public IList<IList<int>> ThreeSum(int[] nums) {
             Array.Sort(nums, 0, nums.Length);
 
@@ -65,6 +65,47 @@ namespace leetcode {
 
         public override int GetHashCode() {
             return this.First + this.Second + this.Third;
+        }
+    }
+
+    public class Solution15Fast {
+        public IList<IList<int>> ThreeSum(int[] nums) {
+            Array.Sort(nums, 0, nums.Length);
+
+            var result = new List<IList<int>>();
+
+            for (var i = 0; i < nums.Length - 2; ++i) {
+                if (nums[i] > 0) {
+                    return result;
+                }
+
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+
+                var left = i + 1;
+                var right = nums.Length - 1;
+                while (left < right) {
+                    var sum = nums[i] + nums[left] + nums[right];
+                    if (sum < 0) {
+                        left++;
+                    } else if (sum > 0) {
+                        right--;
+                    } else if (sum == 0) {
+                        var tuple = new List<int>() { nums[i], nums[left], nums[right] };
+                        result.Add(tuple);
+                        while (left < right && nums[left] == nums[left + 1]) {
+                            left++;
+                        }
+                        while (left < right && nums[right] == nums[right - 1]) {
+                            right--;
+                        }
+                        left++;
+                        right--;
+                    }
+                }
+            }
+            return result;
         }
     }
 }
