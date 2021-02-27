@@ -5,17 +5,13 @@ namespace leetcode {
     public class Solution151 {
         public string ReverseWords(string s) {
             var c = s.ToCharArray();
-
-            Resize(ref c);
-
-            ReverseEachWord(c);
-
-            ReversePart(c, 0, c.Length - 1);
-
+            RemoveExtraSpaces(ref c);
+            ReverseWords(c);
+            Reverse(c, 0, c.Length - 1);
             return new String(c);
         }
 
-        private void Resize(ref char[] c) {
+        private void RemoveExtraSpaces(ref char[] c) {
             var slow = 0;
             var fast = 0;
 
@@ -45,7 +41,7 @@ namespace leetcode {
             Array.Resize(ref c, slow);
         }
 
-        private void ReversePart(char[] c, int start, int end) {
+        private void Reverse(char[] c, int start, int end) {
             var i = start;
             var j = end;
             while (i < j) {
@@ -57,7 +53,7 @@ namespace leetcode {
             }
         }
 
-        private void ReverseEachWord(char[] c) {
+        private void ReverseWords(char[] c) {
             var start = 0;
             var len = c.Count();
             while (start < len) {
@@ -66,7 +62,7 @@ namespace leetcode {
                     end++;
                 }
                 end--;
-                ReversePart(c, start, end);
+                Reverse(c, start, end);
 
                 start = end + 2;
             }
