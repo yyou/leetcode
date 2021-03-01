@@ -4,48 +4,42 @@ using System.Linq;
 
 namespace leetcode {
     public class MyQueue {
-        private Stack<int> _stack1;
-        private Stack<int> _stack2;
+
+        private Stack<int> _stackIn;
+        private Stack<int> _stackOut;
 
         /** Initialize your data structure here. */
         public MyQueue() {
-            _stack1 = new Stack<int>();
-            _stack2 = new Stack<int>();
+            _stackIn = new Stack<int>();
+            _stackOut = new Stack<int>();
         }
 
         /** Push element x to the back of queue. */
         public void Push(int x) {
-            if (_stack2.Count > 0) {
-                while (_stack2.Count > 0) {
-                    _stack1.Push(_stack2.Pop());
-                }
-            }
-            _stack1.Push(x);
+            _stackIn.Push(x);
         }
 
         /** Removes the element from in front of queue and returns that element. */
         public int Pop() {
-            if (_stack1.Count > 0) {
-                while (_stack1.Count > 0) {
-                    _stack2.Push(_stack1.Pop());
+            if (_stackOut.Count == 0) {
+                while (_stackIn.Count > 0) {
+                    _stackOut.Push(_stackIn.Pop());
                 }
             }
-            return _stack2.Pop();
+            return _stackOut.Pop();
         }
 
         /** Get the front element. */
         public int Peek() {
-            if (_stack1.Count > 0) {
-                while (_stack1.Count > 0) {
-                    _stack2.Push(_stack1.Pop());
-                }
-            }
-            return _stack2.Peek();
+            var num = Pop();
+            _stackOut.Push(num);
+            return num;
+
         }
 
         /** Returns whether the queue is empty. */
         public bool Empty() {
-            return _stack1.Count() == 0 && _stack2.Count() == 0;
+            return _stackIn.Count() == 0 && _stackOut.Count() == 0;
         }
     }
 
