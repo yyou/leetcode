@@ -10,9 +10,9 @@ namespace leetcode {
                 dict[num]++;
             }
 
-            var queue = new MyPriorityQueue();
-            foreach (var node in dict) {
-                queue.Push(new Tuple<int, int>(node.Key, node.Value));
+            var queue = new PriorityQueue<KeyValuePair<int, int>>(200, new ItemFrequencyComparer());
+            foreach (var kvPair in dict) {
+                queue.Push(kvPair);
                 if (queue.Count > k) {
                     queue.Pop();
                 }
@@ -22,38 +22,22 @@ namespace leetcode {
             var index = 0;
             while (queue.Count > 0) {
                 var node = queue.Pop();
-                result[index++] = node.Item1;
+                result[index++] = node.Key;
             }
 
             return result;
         }
     }
 
-    public class MyPriorityQueue {
-        private List<Tuple<int, int>> _list;
-
-        public MyPriorityQueue() {
-            _list = new List<Tuple<int, int>>();
-        }
-
-        public void Push(Tuple<int, int> item) {
-            int index = _list.Count() - 1;
-            while (index >= 0 && _list[index].Item2 > item.Item2) {
-                index--;
-            }
-            _list.Insert(index + 1, item);
-        }
-
-        public Tuple<int, int> Pop() {
-            var node = _list.First();
-            _list.RemoveAt(0);
-            return node;
-        }
-
-        public int Count {
-            get {
-                return _list.Count();
+    public class ItemFrequencyComparer : IComparer<KeyValuePair<int, int>> {
+        public int Compare(KeyValuePair<int, int> p1, KeyValuePair<int, int> p2) {
+            if (p1.Value > p2.Value) {
+                return 1;
+            } else if (p1.Value < p2.Value) {
+                return -1;
+            } else {
+                return 0;
             }
         }
-    }
+    }    
 }
