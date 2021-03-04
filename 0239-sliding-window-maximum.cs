@@ -6,7 +6,7 @@ namespace leetcode
 {
     public class Solution239 {
         public int[] MaxSlidingWindow(int[] nums, int k) {
-            var queue = new MyQueue();
+            var queue = new ForwardQueue();
             for(var i = 0; i < k; ++i) {
                 queue.Enqueue(nums[i]);
             }
@@ -24,10 +24,10 @@ namespace leetcode
         }
     }
 
-    public class MyQueue {
+    public class ForwardQueue {
         private LinkedList<int> _list;
         
-        public MyQueue() {
+        public ForwardQueue() {
             _list = new LinkedList<int>();
         }
         
