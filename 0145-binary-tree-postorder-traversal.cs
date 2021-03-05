@@ -16,7 +16,7 @@ namespace leetcode {
  *     }
  * }
  */
-    public class Solution145 {
+    public class Solution145Recursive {
         public IList<int> PostorderTraversal(TreeNode root) {
             IList<int> result = new List<int>();
             PostorderTraversal(root, result);
@@ -31,6 +31,25 @@ namespace leetcode {
             PostorderTraversal(node.left, result);
             PostorderTraversal(node.right, result);
             result.Add(node.val);
+        }
+    }
+
+    public class Solution145Iteration {
+        public IList<int> PostorderTraversal(TreeNode root) {
+            IList<int> result = new List<int>();
+            var stack = new Stack<TreeNode>();
+            stack.Push(root);
+            while (stack.Count > 0) {
+                var node = stack.Pop();
+                if (node == null) {
+                    continue;
+                }
+                result.Add(node.val);
+                stack.Push(node.right);
+                stack.Push(node.left);
+            }
+            result = result.Reverse().ToList();
+            return result;
         }
     }
 }
