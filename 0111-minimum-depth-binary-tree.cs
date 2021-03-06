@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace leetcode {
-    public class Solution111 {
+    public class Solution111Iteration {
         public int MinDepth(TreeNode root) {
             if (root == null) {
                 return 0;
@@ -34,6 +34,31 @@ namespace leetcode {
             }
 
             return steps;
+        }
+    }
+
+    public class Solution111Recursion {
+        public int MinDepth(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+
+            var leftDepth = MinDepth(root.left);
+            var rightDepth = MinDepth(root.right);
+
+            if (root.left == null && root.right == null) {
+                return 1;
+            }
+
+            if (root.left == null) {
+                return rightDepth + 1;
+            }
+
+            if (root.right == null) {
+                return leftDepth + 1;
+            }
+
+            return Math.Min(leftDepth, rightDepth) + 1;
         }
     }
 }
