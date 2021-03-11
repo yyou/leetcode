@@ -23,28 +23,13 @@ namespace leetcode {
 
     public class Solution700Iteration {
         public TreeNode SearchBST(TreeNode root, int val) {
-            if (root == null) {
-                return null;
-            }
-
-            var queue = new Queue<TreeNode>();
-            queue.Enqueue(root);
-            while (queue.Any()) {
-                var node = queue.Dequeue();
-                if (node == null) {
-                    return null;
-                }
-
-                if (node.val == val) {
-                    return node;
-                }
-
-                if (node.val > val) {
-                    queue.Enqueue(node.left);
-                }
-
-                if (node.val < val) {
-                    queue.Enqueue(node.right);
+            while (root != null) {
+                if (root.val > val) {
+                    root = root.left;
+                } else if (root.val < val) {
+                    root = root.right;
+                } else {
+                    return root;
                 }
             }
             return null;
