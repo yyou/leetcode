@@ -68,4 +68,51 @@ namespace leetcode {
             return preNode;
         }
     }
+
+    public class Solution98Recursion {
+        private TreeNode pre;
+        public bool IsValidBST(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+
+            if (IsValidBST(root.left) == false) {
+                return false;
+            }
+
+            if (pre != null && pre.val >= root.val) {
+                return false;
+            }
+
+            pre = root;
+
+            if (IsValidBST(root.right) == false) {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public class Solution98Simple {
+        public bool IsValidBST(TreeNode root) {
+            return IsValidBST(root, null, null);
+        }
+
+        private bool IsValidBST(TreeNode root, TreeNode min, TreeNode max) {
+            if (root == null) {
+                return true;
+            }
+
+            if (min != null && root.val <= min.val) {
+                return false;
+            }
+
+            if (max != null && root.val >= max.val) {
+                return false;
+            }
+
+            return IsValidBST(root.left, min, root) && IsValidBST(root.right, root, max);
+        }
+    }
 }
