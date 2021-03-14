@@ -60,4 +60,29 @@ namespace leetcode {
             return _min;
         }
     }
+
+    public class Solution530RecursionAndArray {
+        private readonly List<int> _list = new List<int>();
+
+        public int GetMinimumDifference(TreeNode root) {
+            Traversal(root);
+            var min = Int32.MaxValue;
+            for (var i = 0; i < _list.Count - 1; ++i) {
+                if (min > _list[i + 1] - _list[i]) {
+                    min = _list[i + 1] - _list[i];
+                }
+            }
+            return min;
+        }
+
+        private void Traversal(TreeNode node) {
+            if (node == null) {
+                return;
+            }
+
+            Traversal(node.left);
+            _list.Add(node.val);
+            Traversal(node.right);
+        }
+    }
 }
