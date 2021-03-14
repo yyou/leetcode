@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace leetcode {
-    public class Solution530 {
+    public class Solution530Iteration {
         public int GetMinimumDifference(TreeNode root) {
             var list = new List<int>();
             var stack = new Stack<TreeNode>();
@@ -35,6 +35,29 @@ namespace leetcode {
             }
 
             return min;
+        }
+    }
+
+    public class Solution530Recursion {
+        private Int32 _min = Int32.MaxValue;
+        private TreeNode _prev = null;
+
+        public int GetMinimumDifference(TreeNode root) {
+            if (root == null) {
+                return _min;
+            }
+
+            GetMinimumDifference(root.left);
+
+            if (_prev != null && root.val - _prev.val < _min) {
+                _min = root.val - _prev.val;
+            }
+
+            _prev = root;
+
+            GetMinimumDifference(root.right);
+
+            return _min;
         }
     }
 }
