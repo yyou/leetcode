@@ -42,4 +42,52 @@ namespace leetcode {
             Traversal(node.right);
         }
     }
+
+    public class Solution501Iteration {
+        public int[] FindMode(TreeNode root) {
+            var count = 0;
+            var maxCount = 0;
+            TreeNode prev = null;
+            var result = new List<int>();
+            var stack = new Stack<TreeNode>();
+            if (root != null) {
+                stack.Push(root);
+            }
+
+            while (stack.Any()) {
+                var node = stack.Pop();
+                if (node != null) {
+                    if (node.right != null) {
+                        stack.Push(node.right);
+                    }
+                    stack.Push(node);
+                    stack.Push(null);
+                    if (node.left != null) {
+                        stack.Push(node.left);
+                    }
+                } else {
+                    node = stack.Pop();
+                    if (prev == null) {
+                        count = 1;
+                    } else if (prev.val == node.val) {
+                        count++;
+                    } else {
+                        count = 1;
+                    }
+
+                    if (count == maxCount) {
+                        result.Add(node.val);
+                    } else if (count > maxCount) {
+                        result.Clear();
+                        result.Add(node.val);
+                        maxCount = count;
+                    }
+
+                    prev = node;
+                }
+            }
+
+            return result.ToArray();
+        }
+    }
 }
