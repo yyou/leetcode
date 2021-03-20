@@ -5,38 +5,27 @@ using System.Linq;
 namespace leetcode {
     public class Solution77 {
         private IList<IList<int>> _result = new List<IList<int>>();
+        private List<int> _path = new List<int>();
 
         public IList<IList<int>> Combine(int n, int k) {
-            var selectedList = new List<int>();
-            for (var i = 1; i <= n; ++i) {
-                selectedList.Add(i);
-            }
-
-            var path = new List<int>();
-
-            BackTracking(path, selectedList, 0, k);
-
+            BackTracking(n, k, 1);
             return _result;
         }
 
-        private void BackTracking(List<int> path, List<int> selectedList, int currentIndex, int k) {
-            if (path.Count == k) {
+        private void BackTracking(int n, int k, int startIndex) {
+            if (_path.Count == k) {
                 var clonedPath = new List<int>();
-                foreach (var num in path) {
+                foreach (var num in _path) {
                     clonedPath.Add(num);
                 }
                 _result.Add(clonedPath);
                 return;
             }
 
-            for (var i = currentIndex; i < selectedList.Count; ++i) {
-                if (path.IndexOf(selectedList[i]) != -1) {
-                    continue;
-                }
-
-                path.Add(selectedList[i]);
-                BackTracking(path, selectedList, i + 1, k);
-                path.RemoveAt(path.Count - 1);
+            for (var i = startIndex; i <= n; ++i) {
+                _path.Add(i);
+                BackTracking(n, k, i + 1);
+                _path.RemoveAt(_path.Count - 1);
             }
         }
     }
