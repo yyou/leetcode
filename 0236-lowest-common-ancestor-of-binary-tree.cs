@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace leetcode {
-    public class Solution236 {
+    public class Solution236Stack {
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
             var path1 = new Stack<TreeNode>();
             IsAncestor(root, p, path1);
@@ -44,6 +44,27 @@ namespace leetcode {
             }
 
             return false;
+        }
+    }
+
+    public class Solution236Recursion {
+        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == p || root == q || root == null) {
+                return root;
+            }
+
+            var left = LowestCommonAncestor(root.left, p, q);
+            var right = LowestCommonAncestor(root.right, p, q);
+            if (left != null && right != null) {
+                return root;
+            }
+            if (left != null) {
+                return left;
+            }
+            if (right != null) {
+                return right;
+            }
+            return null;
         }
     }
 }
