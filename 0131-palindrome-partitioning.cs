@@ -13,7 +13,7 @@ namespace leetcode {
         }
 
         private void Partition(string s, int start) {
-            if (start == s.Length) {
+            if (start >= s.Length) {
                 var clonedPath = new List<string>();
                 foreach (var p in _path) {
                     clonedPath.Add(p);
@@ -22,25 +22,22 @@ namespace leetcode {
                 return;
             }
 
-            for (var i = start + 1; i <= s.Length; ++i) {
-                var sub = s.Substring(start, i - start);
-                if (IsPalindrome(sub)) {
-                    _path.Add(sub);
-                    Partition(s, i);
+            for (var i = start; i < s.Length; ++i) {
+                if (IsPalindrome(s, start, i)) {
+                    _path.Add(s.Substring(start, i - start + 1));
+                    Partition(s, i + 1);
                     _path.RemoveAt(_path.Count - 1);
                 }
             }
         }
 
-        private bool IsPalindrome(string s) {
-            var i = 0;
-            var j = s.Length - 1;
-            while (i < j) {
-                if (s[i] != s[j]) {
+        private bool IsPalindrome(string s, int start, int end) {
+            while (start < end) {
+                if (s[start] != s[end]) {
                     return false;
                 }
-                i++;
-                j--;
+                start++;
+                end--;
             }
             return true;
         }
