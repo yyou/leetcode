@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace leetcode {
-    public class Solution {
+    public class Solution93 {
         private IList<string> _result = new List<string>();
         private IList<int> _path = new List<int>();
 
