@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace leetcode {
-    public class Solution332 {
+    public class Solution322 {
         public int CoinChange(int[] coins, int amount) {
             var memo = new Dictionary<int, int>();
             return CoinChangeImpl(coins, amount, memo);
