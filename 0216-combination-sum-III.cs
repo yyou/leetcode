@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace leetcode {
     public class Solution216 {
-        private List<int> _path = new List<int>();
-        private IList<IList<int>> _result = new List<IList<int>>();
+        private readonly List<int> _path = new();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
 
         public IList<IList<int>> CombinationSum3(int k, int n) {
             BackTracking(k, n, 0, 1);
@@ -13,10 +13,6 @@ namespace leetcode {
         }
 
         private void BackTracking(int k, int targetSum, int currentSum, int startIndex) {
-            if (currentSum > targetSum) {
-                return;
-            }
-
             if (_path.Count == k) {
                 if (currentSum == targetSum) {
                     var clonedPath = new List<int>();
@@ -29,6 +25,10 @@ namespace leetcode {
             }
 
             for (var i = startIndex; i <= 9; ++i) {
+                if (currentSum + i > targetSum) {
+                    break;
+                }
+
                 _path.Add(i);
                 currentSum += i;
 
