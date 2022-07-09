@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution77 {
-        private IList<IList<int>> _result = new List<IList<int>>();
-        private List<int> _path = new List<int>();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
+        private readonly List<int> _path = new();
 
         public IList<IList<int>> Combine(int n, int k) {
             BackTracking(n, k, 1);
@@ -14,11 +12,7 @@ namespace leetcode {
 
         private void BackTracking(int n, int k, int startIndex) {
             if (_path.Count == k) {
-                var clonedPath = new List<int>();
-                foreach (var num in _path) {
-                    clonedPath.Add(num);
-                }
-                _result.Add(clonedPath);
+                _result.Add(new List<int>(_path));
                 return;
             }
 

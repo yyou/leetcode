@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution17 {
-        private Dictionary<char, string> _dict = new Dictionary<char, string>();
-        private List<string> _result = new List<string>();
-        private String _path = String.Empty;
+        private readonly Dictionary<char, string> _dict = new Dictionary<char, string>();
+        private readonly List<string> _result = new();
+        private string _path = string.Empty;
 
         public Solution17() {
             _dict.Add('0', "");
@@ -22,13 +20,13 @@ namespace leetcode {
         }
 
         public IList<string> LetterCombinations(string digits) {
-            List<string> strings = new List<string>();
+            var strings = new List<string>();
             for (var i = 0; i < digits.Length; ++i) {
                 var c = digits[i];
                 strings.Add(_dict[c]);
             }
 
-            if (String.IsNullOrWhiteSpace(digits)) {
+            if (string.IsNullOrWhiteSpace(digits)) {
                 return _result;
             }
 
@@ -45,7 +43,7 @@ namespace leetcode {
 
             var s = strings[index];
             for (var i = 0; i < s.Length; ++i) {
-                _path = _path + s.Substring(i, 1);
+                _path = string.Concat(_path, s.Substring(i, 1));
                 BackTracking(strings, index + 1);
                 _path = _path.Substring(0, _path.Length - 1);
             }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution216 {
@@ -15,11 +13,7 @@ namespace leetcode {
         private void BackTracking(int k, int targetSum, int currentSum, int startIndex) {
             if (_path.Count == k) {
                 if (currentSum == targetSum) {
-                    var clonedPath = new List<int>();
-                    foreach (var p in _path) {
-                        clonedPath.Add(p);
-                    }
-                    _result.Add(clonedPath);
+                    _result.Add(new List<int>(_path));
                 }
                 return;
             }

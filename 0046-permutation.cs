@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +15,7 @@ namespace leetcode {
 
         private void PermuteImpl(List<int> selectedNumbers, List<int> candidates) {
             if (!candidates.Any()) {
-                _permutationResult.Add(CloneList(selectedNumbers));
+                _permutationResult.Add(new List<int>(selectedNumbers));
                 return;
             }
 
@@ -25,10 +24,6 @@ namespace leetcode {
                 PermuteImpl(selectedNumbers, candidates.Where(num => num != candidate).ToList());
                 selectedNumbers.Remove(candidate);
             }
-        }
-
-        private List<int> CloneList(IList<int> list) {
-            return list.Select(item => item).ToList();
         }
     }
 }

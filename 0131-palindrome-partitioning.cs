@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution131 {
-        private IList<IList<string>> _result = new List<IList<string>>();
-        private IList<string> _path = new List<string>();
+        private readonly IList<IList<string>> _result = new List<IList<string>>();
+        private readonly IList<string> _path = new List<string>();
 
         public IList<IList<string>> Partition(string s) {
             Partition(s, 0);
@@ -14,11 +12,7 @@ namespace leetcode {
 
         private void Partition(string s, int start) {
             if (start >= s.Length) {
-                var clonedPath = new List<string>();
-                foreach (var p in _path) {
-                    clonedPath.Add(p);
-                }
-                _result.Add(clonedPath);
+                _result.Add(new List<string>(_path));
                 return;
             }
 
@@ -31,7 +25,7 @@ namespace leetcode {
             }
         }
 
-        private bool IsPalindrome(string s, int start, int end) {
+        private static bool IsPalindrome(string s, int start, int end) {
             while (start < end) {
                 if (s[start] != s[end]) {
                     return false;

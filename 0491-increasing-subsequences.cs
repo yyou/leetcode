@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace leetcode {
     public class Solution491 {
-        private IList<IList<int>> _result = new List<IList<int>>();
-        private IList<int> _path = new List<int>();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
+        private readonly IList<int> _path = new List<int>();
 
         public IList<IList<int>> FindSubsequences(int[] nums) {
             Backtracking(nums, 0);
@@ -14,7 +14,7 @@ namespace leetcode {
 
         private void Backtracking(int[] nums, int startIndex) {
             if (_path.Count > 1) {
-                AddToResult(_path);
+                _result.Add(new List<int>(_path));
             }
 
             var usedNums = new List<int>();
@@ -30,15 +30,6 @@ namespace leetcode {
                 Backtracking(nums, i + 1);
                 _path.RemoveAt(_path.Count - 1);
             }
-        }
-
-        private void AddToResult(IList<int> path) {
-            var clonedPath = new List<int>();
-            foreach (var num in path) {
-                clonedPath.Add(num);
-            }
-            _result.Add(clonedPath);
-            return;
         }
     }
 }

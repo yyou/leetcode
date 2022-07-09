@@ -18,11 +18,7 @@ namespace leetcode {
             }
 
             if (currentSum == target) {
-                var clonedPath = new List<int>();
-                foreach (var num in _path) {
-                    clonedPath.Add(num);
-                }
-                _result.Add(clonedPath);
+                _result.Add(new List<int>(_path));
                 return;
             }
 
@@ -35,7 +31,7 @@ namespace leetcode {
             }
         }
 
-        private IList<IList<int>> _result = new List<IList<int>>();
-        private IList<int> _path = new List<int>();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
+        private readonly IList<int> _path = new List<int>();
     }
 }

@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution93 {
-        private IList<string> _result = new List<string>();
-        private IList<int> _path = new List<int>();
+        private readonly IList<string> _result = new List<string>();
+        private readonly IList<int> _path = new List<int>();
 
         public IList<string> RestoreIpAddresses(string s) {
             RestoreIpAddresses(s, 0);
@@ -19,7 +17,7 @@ namespace leetcode {
 
             if (startIndex >= s.Length) {
                 if (_path.Count == 4) {
-                    var ip = String.Join(".", _path);
+                    var ip = string.Join(".", _path);
                     _result.Add(ip);
 
                 }
@@ -32,7 +30,7 @@ namespace leetcode {
                     continue;
                 }
 
-                var num = Int32.Parse(sub);
+                var num = int.Parse(sub);
                 if (num < 0 || num > 255) {
                     continue;
                 }
