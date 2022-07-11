@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace leetcode {
     public class Solution0047WithoutSorting {
-        private IList<IList<int>> _result = new List<IList<int>>();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
 
         public IList<IList<int>> PermuteUnique(int[] nums) {
             var path = new List<int>();
@@ -43,7 +43,7 @@ namespace leetcode {
     }
 
     public class Solution47WithSorting {
-        private IList<IList<int>> _result = new List<IList<int>>();
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
 
         public IList<IList<int>> PermuteUnique(int[] nums) {
             var path = new List<int>();

@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace leetcode {
     public class ItemCountDictionary<TKey> : Dictionary<TKey, int> {
-        public new int this[TKey key] { 
+        public new int this[TKey key] {
             get {
-               if (!ContainsKey(key)) {
-                    return 0;                    
+                if (!ContainsKey(key)) {
+                    return 0;
                 }
                 return base[key];
             }
