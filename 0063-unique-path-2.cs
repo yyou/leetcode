@@ -10,27 +10,20 @@ namespace leetcode {
 
             int[,] dp = new int[m, n];
 
-            for (var i = 0; i < m; ++i) {
-                if (obstacleGrid[i][0] == 1) {
-                    break;
-                }
+            for (var i = 0; i < m && obstacleGrid[i][0] == 0; ++i) {
                 dp[i, 0] = 1;
             }
 
-            for (var j = 0; j < n; ++j) {
-                if (obstacleGrid[0][j] == 1) {
-                    break;
-                }
+            for (var j = 0; j < n && obstacleGrid[0][j] == 0; ++j) {
                 dp[0, j] = 1;
             }
 
             for (var i = 1; i < m; ++i) {
                 for (var j = 1; j < n; ++j) {
                     if (obstacleGrid[i][j] == 1) {
-                        dp[i, j] = 0;
-                    } else {
-                        dp[i, j] = dp[i - 1, j] + dp[i, j - 1];
+                        continue;
                     }
+                    dp[i, j] = dp[i - 1, j] + dp[i, j - 1];
                 }
             }
 
