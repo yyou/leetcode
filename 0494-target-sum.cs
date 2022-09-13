@@ -4,7 +4,7 @@
 
 using System;
 
-public class Solution {
+public class Solution494 {
     public int FindTargetSumWays(int[] nums, int target) {
         var sum = 0;
         for (var i = 0; i < nums.Length; ++i) {
