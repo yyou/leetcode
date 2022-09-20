@@ -11,10 +11,12 @@ namespace leetcode {
             dp[0] = true;
 
             for (var i = 1; i <= s.Length; ++i) {
-                for (var j = 0; j < i; ++j) {
-                    var word = s.Substring(j, i - j);
-                    if (wordDict.Contains(word) && dp[j] == true) {
-                        dp[i] = true;
+                for (var j = 0; j < wordDict.Count; ++j) {
+                    if (wordDict[j].Length <= i) {
+                        var word = s.Substring(i - wordDict[j].Length, wordDict[j].Length);
+                        if (word == wordDict[j] && dp[i - wordDict[j].Length]) {
+                            dp[i] = true;
+                        }
                     }
                 }
             }
