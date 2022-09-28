@@ -7,20 +7,23 @@ using System;
 namespace leetcode {
     public class Solution53 {
         public int MaxSubArray_WithDP(int[] nums) {
-            var res = Int32.MinValue;
-            if (nums.Length == 0) {
+            var size = nums.Length;
+            if (size == 0) {
                 return 0;
             }
 
-            var dp_0 = nums[0];
-            res = Math.Max(res, dp_0);
-            for (var i = 1; i < nums.Length; ++i) {
-                dp_0 = Math.Max(nums[i], nums[i] + dp_0);
-
-                res = Math.Max(res, dp_0);
+            // dp[i] - the maximum-subarray which includes nums[i-1];
+            var dp = new int[size];
+            dp[0] = nums[0];
+            var result = dp[0];
+            for (var i = 1; i < size; ++i) {
+                dp[i] = Math.Max(dp[i - 1] + nums[i], nums[i]);
+                if (dp[i] > result) {
+                    result = dp[i];
+                }
             }
 
-            return res;
+            return result;
         }
 
         public int MaxSubArray_WithGreedy(int[] nums) {
