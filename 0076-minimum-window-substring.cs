@@ -1,71 +1,67 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
-    public class Solution76 {
+    public class Solution {
         public string MinWindow(string s, string t) {
-            var need = new Dictionary<Char, Int32>();
+            var need = new int[52];
             for (var i = 0; i < t.Length; ++i) {
-                if (need.ContainsKey(t[i])) {
-                    need[t[i]]++;
-                } else {
-                    need[t[i]] = 1;
-                }
+                var idx = GetCharIndex(t[i]);
+                need[idx]++;
             }
 
-            var window = new Dictionary<Char, Int32>();
-            var valid = 0;
-
-            var left = 0;
-            var right = 0;
-
-            var minimumLength = Int32.MaxValue;
             var start = 0;
-            var len = 0;
+            var minLength = Int32.MaxValue;
 
-            while (right < s.Length) {
-                // Expand window
-                var c = s[right];
-                right++;
+            var window = new int[52];
+            var left = 0;
+            for (var right = 0; right < s.Length; ++right) {
+                var idx = GetCharIndex(s[right]);
+                window[idx]++;
 
-                if (need.ContainsKey(c)) {
-                    if (window.ContainsKey(c)) {
-                        window[c]++;
-                    } else {
-                        window[c] = 1;
-                    }
-
-                    if (window[c] == need[c]) {
-                        valid++;
-                    }
+                if (right - left + 1 < t.Length) {
+                    continue;
                 }
 
-                // Need to shrink window
-                while (valid == need.Count()) {
-                    if (right - left < minimumLength) {
+                while (IsValidWindow(window, need)) {
+                    if (right - left + 1 < minLength) {
                         start = left;
-                        len = right - left;
-                        minimumLength = len;
+                        minLength = right - left + 1;
                     }
 
-                    var d = s[left];
+                    idx = GetCharIndex(s[left]);
+                    window[idx]--;
                     left++;
-
-                    if (need.ContainsKey(d)) {
-                        if (window[d] == need[d]) {
-                            valid--;
-                        }
-                        window[d]--;
-                    }
                 }
             }
 
-            if (minimumLength == Int32.MaxValue) {
+            if (minLength == Int32.MaxValue) {
                 return "";
-            } else {
-                return s.Substring(start, len);
             }
+
+            return s.Substring(start, minLength);
+        }
+
+        private int GetCharIndex(char c) {
+            if (Char.IsUpper(c)) {
+                return c - 'A';
+            } else {
+                return c - 'a' + 26;
+            }
+        }
+
+        private bool IsValidWindow(int[] s, int[] t) {
+            for (var i = 0; i < 52; ++i) {
+                if (s[i] < t[i]) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
+
