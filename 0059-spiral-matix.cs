@@ -1,6 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace leetcode {
     public class Solution59 {
@@ -73,6 +73,50 @@ namespace leetcode {
                     }
                     break;
             }
+        }
+
+        // better solution than the one above
+        public int[][] GenerateMatrix2(int n) {
+            var left = 0;
+            var right = n - 1;
+            var top = 0;
+            var bottom = n - 1;
+
+            var matrix = new int[n][];
+            for (var i = 0; i < n; ++i) {
+                matrix[i] = new int[n];
+            }
+
+            var count = 0;
+
+            while (top <= bottom && left <= right) {
+                for (var i = left; i <= right; ++i) {
+                    matrix[top][i] = ++count;
+                }
+                top++;
+
+                for (var i = top; i <= bottom; ++i) {
+                    matrix[i][right] = ++count;
+                }
+                right--;
+
+                if (top <= bottom) {
+                    for (var i = right; i >= left; --i) {
+                        matrix[bottom][i] = ++count;
+                    }
+                    bottom--;
+                }
+
+                if (left <= right) {
+                    for (var i = bottom; i >= top; --i) {
+                        matrix[i][left] = ++count;
+                    }
+
+                    left++;
+                }
+            }
+
+            return matrix;
         }
     }
 }
