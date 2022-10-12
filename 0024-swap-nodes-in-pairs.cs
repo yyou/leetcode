@@ -20,5 +20,25 @@ namespace leetcode {
 
             return next;
         }
+
+        public class Solution24Iteration {
+            public ListNode SwapPairs(ListNode head) {
+                var dummy = new ListNode(0, head);
+                var curr = dummy;
+                while (curr.next != null && curr.next.next != null) {
+                    var first = curr.next;
+                    var second = first.next;
+                    var third = second.next;
+
+                    curr.next = second;
+                    second.next = first;
+                    first.next = third;
+
+                    curr = first;
+                }
+
+                return dummy.next;
+            }
+        }
     }
 }
