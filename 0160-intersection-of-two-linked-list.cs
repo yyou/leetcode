@@ -7,17 +7,17 @@ namespace leetcode {
         public ListNode GetIntersectionNode(ListNode headA, ListNode headB) {
             // Get list A length
             var sizeA = 0;
-            var node = headA;
-            while (node != null) {
-                node = node.next;
+            var nodeA = headA;
+            while (nodeA != null) {
+                nodeA = nodeA.next;
                 sizeA++;
             }
 
             // Get list B length
             var sizeB = 0;
-            node = headB;
-            while (node != null) {
-                node = node.next;
+            var nodeB = headB;
+            while (nodeB != null) {
+                nodeB = nodeB.next;
                 sizeB++;
             }
 
@@ -34,8 +34,8 @@ namespace leetcode {
             }
 
             // Make list A & B aligned at the end
-            var nodeA = headA;
-            var nodeB = headB;
+            nodeA = headA;
+            nodeB = headB;
             var diff = sizeA - sizeB;
             while (diff > 0) {
                 nodeA = nodeA.next;
@@ -47,7 +47,6 @@ namespace leetcode {
                 if (nodeA == nodeB) {
                     return nodeA;
                 }
-
                 nodeA = nodeA.next;
                 nodeB = nodeB.next;
             }
