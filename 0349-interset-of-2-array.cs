@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace leetcode {
     public class Solution349 {
@@ -25,6 +26,23 @@ namespace leetcode {
             }
 
             return intersect.ToArray();
+        }
+
+        // If the number's range is too big, then it's a waste to use array as hashtable.
+        public int[] Intersection2(int[] nums1, int[] nums2) {
+            var set = new HashSet<int>();
+            foreach (var i in nums1) {
+                set.Add(i);
+            }
+
+            var result = new HashSet<int>();
+            foreach (var i in nums2) {
+                if (set.Contains(i)) {
+                    result.Add(i);
+                }
+            }
+
+            return result.ToArray();
         }
     }
 }
