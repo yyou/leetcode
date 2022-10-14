@@ -1,17 +1,15 @@
-using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution202 {
         public bool IsHappy(int n) {
             var set = new HashSet<int>();
-            while (true) {
+            while (n != 1) {
                 var sum = GetSquareSum(n);
-                if (sum == 1) {
-                    return true;
-                }
-
                 if (set.Contains(sum)) {
                     return false;
                 } else {
@@ -19,6 +17,7 @@ namespace leetcode {
                     n = sum;
                 }
             }
+            return true;
         }
 
         private int GetSquareSum(int n) {
