@@ -5,7 +5,7 @@
 using System;
 
 namespace leetcode {
-    public class Solution {
+    public class Solution76 {
         public string MinWindow(string s, string t) {
             var need = new int[52];
             for (var i = 0; i < t.Length; ++i) {
