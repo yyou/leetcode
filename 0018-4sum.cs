@@ -1,6 +1,9 @@
-﻿using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution18 {
@@ -10,11 +13,19 @@ namespace leetcode {
             var result = new List<IList<int>>();
 
             for (var i = 0; i < nums.Length - 3; ++i) {
+                if (nums[i] >= 0 && nums[i] > target) {
+                    break;
+                }
+
                 if (i > 0 && nums[i] == nums[i - 1]) {
                     continue;
                 }
 
                 for (var j = i + 1; j < nums.Length - 2; ++j) {
+                    if (nums[i] + nums[j] > target && nums[i] + nums[j] >= 0) {
+                        break;
+                    }
+
                     if (j > i + 1 && nums[j] == nums[j - 1]) {
                         continue;
                     }
