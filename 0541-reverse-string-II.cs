@@ -1,31 +1,26 @@
-using System;
-using System.Linq;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace leetcode {
     public class Solution541 {
         public string ReverseStr(string s, int k) {
             var c = s.ToCharArray();
-            var sections = c.Count() / (2 * k);
-            for (var i = 0; i < sections; ++i) {
-                var start = i * 2 * k;
-                ReverseStr(c, start, k);
-            }
 
-            if (c.Count() % (2 * k) > 0) {
-                var start = sections * 2 * k;
-                var len = c.Count() - start;
-                if (len < k) {
-                    ReverseStr(c, start, len);
+            for (var i = 0; i < c.Length; i += 2 * k) {
+                if (c.Length < i + k) {
+                    Reverse(c, i, c.Length - 1);
                 } else {
-                    ReverseStr(c, start, k);
+                    Reverse(c, i, i + k - 1);
                 }
             }
-            return new String(c);
+
+            return new string(c);
         }
 
-        private void ReverseStr(char[] c, int start, int len) {
+        private void Reverse(char[] c, int start, int end) {
             var i = start;
-            var j = start + len - 1;
+            var j = end;
             while (i < j) {
                 var tmp = c[i];
                 c[i] = c[j];
