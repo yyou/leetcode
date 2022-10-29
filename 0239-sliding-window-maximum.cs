@@ -1,49 +1,50 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
-namespace leetcode
-{
+using System.Collections.Generic;
+
+namespace leetcode {
     public class Solution239 {
         public int[] MaxSlidingWindow(int[] nums, int k) {
             var queue = new ForwardQueue();
-            for(var i = 0; i < k; ++i) {
-                queue.Enqueue(nums[i]);
+            for (var i = 0; i < k; ++i) {
+                queue.Push(nums[i]);
             }
-            
+
             var result = new List<int>();
             result.Add(queue.Top());
-            
-            for(var i = k; i < nums.Length; ++i) {
-                queue.Dequeue(nums[i-k]);
-                queue.Enqueue(nums[i]);
+
+            for (var i = k; i < nums.Length; ++i) {
+                queue.Pop(nums[i - k]);
+                queue.Push(nums[i]);
                 result.Add(queue.Top());
             }
-            
+
             return result.ToArray();
         }
     }
 
     public class ForwardQueue {
-        private LinkedList<int> _list;
-        
+        private readonly LinkedList<int> _list;
+
         public ForwardQueue() {
             _list = new LinkedList<int>();
         }
-        
-        public void Enqueue(int val) {
+
+        public void Push(int val) {
             while (_list.Count > 0 && _list.Last.Value < val) {
                 _list.RemoveLast();
             }
             _list.AddLast(val);
         }
-        
-        public void Dequeue(int val) {
+
+        public void Pop(int val) {
             if (_list.Count > 0 && _list.First.Value == val) {
                 _list.RemoveFirst();
             }
         }
-        
+
         public int Top() {
             return _list.First.Value;
         }
