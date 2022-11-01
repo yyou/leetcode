@@ -1,4 +1,7 @@
-using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,6 +37,41 @@ namespace leetcode {
                     cur = stack.Pop();
                     result.Add(cur.val);
                     cur = cur.right;
+                }
+            }
+
+            return result;
+        }
+    }
+
+    public class Solution94IterationUnified {
+        public IList<int> InorderTraversal(TreeNode root) {
+            var result = new List<int>();
+            var st = new Stack<TreeNode>();
+
+            if (root != null) {
+                st.Push(root);
+            }
+
+            while (st.Any()) {
+                var node = st.Peek();
+                if (node != null) {
+                    node = st.Pop();
+
+                    if (node.right != null) {
+                        st.Push(node.right);
+                    }
+
+                    st.Push(node);
+                    st.Push(null);
+
+                    if (node.left != null) {
+                        st.Push(node.left);
+                    }
+                } else {
+                    st.Pop();
+                    node = st.Pop();
+                    result.Add(node.val);
                 }
             }
 
