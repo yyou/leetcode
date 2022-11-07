@@ -1,3 +1,7 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +15,11 @@ namespace leetcode {
 
             Queue<TreeNode> q = new Queue<TreeNode>();
             q.Enqueue(root);
-            var steps = 1;
+            var steps = 0;
 
             while (q.Count() != 0) {
                 var count = q.Count();
+                steps++;
                 for (var i = 0; i < count; i++) {
                     var currentNode = q.Dequeue();
 
@@ -30,7 +35,6 @@ namespace leetcode {
                         q.Enqueue(currentNode.right);
                     }
                 }
-                steps++;
             }
 
             return steps;
@@ -45,10 +49,6 @@ namespace leetcode {
 
             var leftDepth = MinDepth(root.left);
             var rightDepth = MinDepth(root.right);
-
-            if (root.left == null && root.right == null) {
-                return 1;
-            }
 
             if (root.left == null) {
                 return rightDepth + 1;
