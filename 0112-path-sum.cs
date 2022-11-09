@@ -1,3 +1,7 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,19 +10,23 @@ namespace leetcode {
     public class Solution112Recursion {
         public bool HasPathSum(TreeNode root, int targetSum) {
             if (root == null) {
-                return targetSum == 0;
+                return false;
             }
 
-            if (root.left != null && root.right != null) {
-                var leftPathResult = HasPathSum(root.left, targetSum - root.val);
-                var rightPathResult = HasPathSum(root.right, targetSum - root.val);
-                return leftPathResult || rightPathResult;
+            if (root.left == null && root.right == null) {
+                return root.val == targetSum;
             } else if (root.right == null) {
                 return HasPathSum(root.left, targetSum - root.val);
             } else if (root.left == null) {
                 return HasPathSum(root.right, targetSum - root.val);
             } else {
-                return root.val == targetSum;
+                var leftPathResult = HasPathSum(root.left, targetSum - root.val);
+                if (leftPathResult) {
+                    return true;
+                }
+
+                var rightPathResult = HasPathSum(root.right, targetSum - root.val);
+                return rightPathResult;
             }
         }
     }
