@@ -24,5 +24,23 @@ namespace leetcode {
             return a[m - 1, n - 1];
         }
     }
+
+    public class Solution60WithSpaceOpportimised {
+        public int UniquePaths(int m, int n) {
+            var a = new int[n];
+
+            for (var i = 0; i < n; ++i) {
+                a[i] = 1;
+            }
+
+            for (var j = 1; j < m; ++j) {
+                for (var i = 1; i < n; ++i) {
+                    a[i] += a[i - 1];
+                }
+            }
+
+            return a[n - 1];
+        }
+    }
 }
 
