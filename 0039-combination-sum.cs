@@ -34,4 +34,31 @@ namespace leetcode {
         private readonly IList<IList<int>> _result = new List<IList<int>>();
         private readonly IList<int> _path = new List<int>();
     }
+
+    public class Solution39AfterCuttingBranches {
+        private readonly IList<IList<int>> _result = new List<IList<int>>();
+        private readonly IList<int> _path = new List<int>();
+
+        public IList<IList<int>> CombinationSum(int[] candidates, int target) {
+            Array.Sort(candidates);
+            Backtrack(candidates, target, 0, 0);
+            return _result;
+        }
+
+        private void Backtrack(int[] candidates, int target, int sum, int startIndex) {
+            if (sum == target) {
+                _result.Add(new List<int>(_path));
+                return;
+            }
+
+            for (var i = startIndex; i < candidates.Length && sum + candidates[i] <= target; ++i) {
+                _path.Add(candidates[i]);
+                sum += candidates[i];
+
+                Backtrack(candidates, target, sum, i);
+                _path.RemoveAt(_path.Count - 1);
+                sum -= candidates[i];
+            }
+        }
+    }
 }
