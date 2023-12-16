@@ -8,16 +8,13 @@ namespace leetcode {
             var dummyHead = new ListNode(1, head);
             var pre = dummyHead;
             var cur = head;
-            ListNode next = null;
             while (cur != null) {
-                next = cur.next;
                 if (cur.val == val) {
-                    pre.next = next;
+                    pre.next = cur.next;
                 } else {
                     pre = cur;
-
                 }
-                cur = next;
+                cur = cur.next;
             }
             return dummyHead.next;
         }
