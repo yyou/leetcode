@@ -6,7 +6,7 @@ namespace leetcode {
         private T[] _items;
         private int _capacity;
         private int _count;
-        private IComparer<T> _comparer;
+        private readonly IComparer<T> _comparer;
 
         public PriorityQueue(int capacity, IComparer<T> comparer) {
             if (capacity <= 0) {

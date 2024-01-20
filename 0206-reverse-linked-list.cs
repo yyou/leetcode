@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace leetcode {
     public class Solution206Iteration {
         public ListNode ReverseList(ListNode head) {
@@ -31,6 +27,6 @@ namespace leetcode {
             head.next.next = head;
             head.next = null;
             return last;
-        }        
+        }
     }
 }

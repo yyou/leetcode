@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace leetcode {
     public class Solution347 {
@@ -39,5 +37,5 @@ namespace leetcode {
                 return 0;
             }
         }
-    }    
+    }
 }

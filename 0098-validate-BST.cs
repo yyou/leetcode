@@ -45,14 +45,12 @@ namespace leetcode {
                 return null;
             }
 
-            var preNode = node.left;
-            var curNode = preNode.right;
-            while (curNode != null) {
-                preNode = curNode;
-                curNode = curNode.right;
+            node = node.left;
+            while (node.right != null) {
+                node = node.right;
             }
 
-            return preNode;
+            return node;
         }
 
         private TreeNode GetRightMin(TreeNode node) {
